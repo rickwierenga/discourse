@@ -7,6 +7,10 @@ in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.38.0] - 2024-09-04
+
+- Added `postMenuButtons` which allows for manipulation of the post menu buttons. This includes, adding, removing, replacing the component or modifying the order of the buttons.
+
 ## [1.37.1] - 2024-08-21
 
 - Added support for `shortcut` in `addComposerToolbarPopupMenuOption` which allows to add a keyboard shortcut to the popup menu option.
