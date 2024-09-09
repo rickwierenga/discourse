@@ -30,7 +30,7 @@ RSpec.describe SessionController do
         get "/session/email-login/#{email_token.token}.json"
         expect(response.status).to eq(403)
 
-        user.update(admin: true)
+        user.reload.update(admin: true)
         get "/session/email-login/#{email_token.token}.json"
         expect(response.status).to eq(200)
         expect(response.parsed_body["error"]).not_to be_present
@@ -47,7 +47,7 @@ RSpec.describe SessionController do
         get "/session/email-login/#{email_token.token}.json"
         expect(response.status).to eq(403)
 
-        user.update(admin: true)
+        user.reload.update(admin: true)
         get "/session/email-login/#{email_token.token}.json"
         expect(response.status).to eq(200)
         expect(response.parsed_body["error"]).not_to be_present
@@ -161,7 +161,7 @@ RSpec.describe SessionController do
         post "/session/email-login/#{email_token.token}.json"
         expect(response.status).to eq(403)
 
-        user.update(admin: true)
+        user.reload.update(admin: true)
         post "/session/email-login/#{email_token.token}.json"
         expect(response.status).to eq(200)
         expect(response.parsed_body["error"]).not_to be_present
@@ -2038,7 +2038,7 @@ RSpec.describe SessionController do
         use_redis_snapshotting
 
         it "should return an error response code with the right error message" do
-          UserPasswordExpirer.expire_user_password(user)
+          UserPasswordExpirer.expire_user_password(user.reload)
           post "/session.json", params: { login: user.username, password: "myawesomepassword" }
 
           expect(response.status).to eq(200)
