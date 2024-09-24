@@ -477,7 +477,10 @@ RSpec.configure do |config|
       %w[sidebar_section_links sidebar_section_id],
       %w[users last_seen_reviewable_id],
       %w[users required_fields_version],
-    ].each { |table, column| DB.exec("ALTER TABLE #{table} ALTER #{column} TYPE bigint") }
+    ].each do |table, column|
+      DB.exec("ALTER TABLE #{table} ALTER #{column} TYPE bigint")
+      table.classify.constantize.reset_column_information
+    end
 
     DB
       .query("SELECT sequence_name FROM information_schema.sequences WHERE data_type = 'bigint'")
